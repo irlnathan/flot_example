@@ -2,7 +2,7 @@
  * jQuery JavaScript Library v1.8.3
  * http://jquery.com/
  *
- * Includes Sizzle.js
+ * Includes Sizzle.js 
  * http://sizzlejs.com/
  *
  * Copyright 2012 jQuery Foundation and other contributors

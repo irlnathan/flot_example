@@ -6,7 +6,7 @@
  * Free to use and abuse under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * http://dev7studios.com
+ * http://dev7studios.com 
  */
 
 (function($) {
