@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html"; charset=utf-8">
+	<title> Flot Example</title>
+	<script language="javascript" type="text/javascript" src="jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="jquery.flot.min.js"></script>
+	<script src="jquery_currency.js"></script>
+	<script src="accounting.min.js"></script>
+	 <link rel="stylesheet" href="graph.css">
+	<!--[if lte IE 8]>
+		<script language="javascript" type="text/javascript" src="Include/excanvas.js""></script>
+	<![endif]-->
+</head>
+<body>
+    <div class="title">US Annual GDP vs. Debt<div>
+	<div class="graph-info">
+        <a href="javascript:void(0)" class="gdp">US GDP ($Billions)</a>
+        <a href="javascript:void(0)" class="debt">US Debt ($Billions)</a>
+    </div>
+
+	<div id = "placeholder" style="width: 550px; height:300px;"></div>
+</body>
+<script type="text/javascript">
+	var data, data1, options, chart;
+	var data2, data3;
+	data2 = [ [2000, 9951.5], [2001, 10286.2], [2002, 10642.3], [2003, 11142.2], [2004, 11853.3], [2005, 12623.0], [2006, 13377.2], [2007, 14028.7], [2008, 14291.6], [2009, 13973.7], [2010, 14498.9], [2011, 15075.7] ];
+	data1 = [ [2000, 5698.93], [2001, 5812.87], [2002, 6191.61], [2003, 6728.05], [2004, 7345.15], [2005, 7929.14], [2006, 8494.60], [2007, 8494.60], [2008, 9913.53], [2009, 11723.35], [2010, 13390.44], [2011, 14656.62] ];
+	data = [{data: data2, 
+				color: '#71c73e', 
+				bars: {
+					show:true, 
+					barWidth:0.5, 
+					align: 'center'}
+			},
+
+			{ data:data1, 
+			  color: 'red', 
+			  lines: {
+			  	show:true}, 
+			  points: {
+                show: true,
+                radius: 5}
+            }
+			
+			];
+	options = {
+		xaxis: {
+            tickColor: 'transparent',
+            tickSize: 1
+        },
+        grid: {
+            color: '#646464',
+            borderColor: 'transparent',
+            borderWidth: 20,
+            hoverable: true
+        },
+      	yaxis: {
+            tickSize: 1000,
+            min: 4900,
+            max: 15500
+        }  
+
+	};
+
+	$(document).ready(function() {
+	chart1 = $.plot($("#placeholder"),data,options);
+
+	// https://github.com/gilbitron/jQuery-Currency
+    $('.yAxis .tickLabel').currency({decimals: 0});
+
+    function showTooltip(x, y, contents) {
+        $('<div id="tooltip">' + contents + '</div>').css({
+            top: y - 16,
+            left: x + 20
+        }).appendTo('body').fadeIn();
+    }
+     
+    var previousPoint = null;
+     
+    $('#placeholder').bind('plothover', function (event, pos, item) {
+        if (item) {
+            if (previousPoint != item.datapoint) {
+                previousPoint = item.datapoint;
+                $('#tooltip').remove();
+                var x = item.datapoint[0],
+
+                    // http://josscrowcroft.github.com/accounting.js/#download
+                   y = accounting.formatMoney(item.datapoint[1], "$", 0);
+                   // y = item.datapoint[1];
+                    showTooltip(pos.pageX, pos.pageY, ' Billions: ' + y + ' Year: ' + x);
+            }
+        } else {
+            $('#tooltip').remove();
+            previousPoint = null;
+        }
+    });
+
+
+
+
+});
+
+</script>
+</html>
