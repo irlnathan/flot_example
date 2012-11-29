@@ -7,4 +7,4 @@ The data is from the St. Louis Federal Reserve and reflects US GDP and US Debt f
 
 A live example can be found [here] [].
 
-[here]:http://www.irlnathan.com/gdp
+[here]:http://www.irlnathan.com/gdp 
